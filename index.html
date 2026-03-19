@@ -7,10 +7,10 @@
 
 <style>
 body {
-    margin: 0;
     background: black;
     color: white;
     font-family: Arial;
+    margin: 0;
     overflow-x: hidden;
 }
 
@@ -29,9 +29,10 @@ canvas {
     box-shadow: 0 0 20px red;
 }
 
-/* SECTION */
+/* SECTION ANIMATION */
 .section {
     padding: 20px;
+    border-bottom: 1px solid #333;
     opacity: 0;
     transform: translateY(30px);
     animation: fade 0.7s forwards;
@@ -39,6 +40,10 @@ canvas {
 
 @keyframes fade {
     to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    color: #ff4444;
 }
 
 /* BOX */
@@ -56,38 +61,49 @@ canvas {
 
 /* BUTTON */
 .button {
-    background: red;
+    display: inline-block;
     padding: 10px 15px;
-    border-radius: 8px;
+    background: red;
     color: white;
     text-decoration: none;
-    display: inline-block;
+    border-radius: 8px;
     margin-top: 10px;
-}
-
-/* GAME GRID */
-.games {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 15px;
-}
-
-.game {
-    text-align: center;
-    cursor: pointer;
-}
-
-.game img {
-    width: 100%;
-    border-radius: 10px;
     transition: 0.3s;
 }
 
-.game img:hover {
+.button:hover {
     transform: scale(1.1);
+    box-shadow: 0 0 10px red;
 }
 
-/* TOGGLE MUSIC */
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+td, th {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background: #222;
+}
+
+/* IMAGE CLICK */
+img {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+img:hover {
+    transform: scale(1.2);
+}
+
+/* MUSIC BUTTON */
 .music-btn {
     position: fixed;
     bottom: 20px;
@@ -99,27 +115,19 @@ canvas {
     box-shadow: 0 0 10px red;
 }
 </style>
-</head>
 
+</head>
 <body>
 
 <canvas id="bg"></canvas>
 
 <div class="header">🚀 REXZ HUB</div>
 
-<div class="section">
-<h2>🎮 Support Game</h2>
-<div class="box">
-<div class="games" id="games"></div>
-</div>
-</div>
-
 <!-- SOUND -->
 <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
 
 <!-- MUSIC -->
 <audio id="bgMusic" loop src="https://files.catbox.moe/8h7w0x.mp3"></audio>
-
 <div class="music-btn" onclick="toggleMusic()">🎵</div>
 
 <script>
@@ -128,35 +136,120 @@ function playClick() {
 }
 </script>
 
-<!-- GAME LIST AUTO -->
+<div class="section">
+<h2>📋 Daftar Isi</h2>
+<div class="box">
+1. Tentang Rexz Hub<br>
+2. Cara Mendapatkan Script<br>
+3. Fitur Script<br>
+4. Cara Penggunaan<br>
+5. Update Terbaru<br>
+6. Komunitas WhatsApp<br>
+7. FAQ<br>
+8. Disclaimer
+</div>
+</div>
+
+<div class="section">
+<h2>🎯 Tentang Rexz Hub</h2>
+<div class="box">
+Rexz Hub adalah kumpulan script Roblox untuk memudahkan farming, auto collect, dan fitur lainnya.
+</div>
+</div>
+
+<div class="section">
+<h2>🔥 Cara Mendapatkan Script</h2>
+<div class="box">
+<a class="button" onclick="playClick()" href="https://whatsapp.com/channel/0029VbCGqNi6GcGNHfses407" target="_blank">
+Join WhatsApp
+</a>
+</div>
+</div>
+
+<div class="section">
+<h2>🎮 Support Game</h2>
+<div class="box">
+
+<table>
+<tr>
+<th>Game</th>
+<th>Status</th>
+<th>Preview</th>
+</tr>
+
+<tr>
+<td>Swing Obby</td>
+<td style="color:lime;">🟢</td>
+<td>
+<img onclick="openGame(9753814298)" src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=9753814298&size=150x150&format=Png" width="60">
+</td>
+</tr>
+
+<tr>
+<td>Cut Grass</td>
+<td style="color:lime;">🟢</td>
+<td>
+<img onclick="openGame(97365843755210)" src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=97365843755210&size=150x150&format=Png" width="60">
+</td>
+</tr>
+
+<tr>
+<td>Reel Brainrot</td>
+<td style="color:lime;">🟢</td>
+<td>
+<img onclick="openGame(106772177198260)" src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=106772177198260&size=150x150&format=Png" width="60">
+</td>
+</tr>
+
+<tr>
+<td>Catch And Tame</td>
+<td>👀</td>
+<td>
+<img onclick="openGame(96645548064314)" src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=96645548064314&size=150x150&format=Png" width="60">
+</td>
+</tr>
+
+<tr>
+<td>Vacuum</td>
+<td>👀</td>
+<td>
+<img onclick="openGame(93724112271596)" src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=93724112271596&size=150x150&format=Png" width="60">
+</td>
+</tr>
+
+<tr>
+<td>Melee RNG</td>
+<td>👀</td>
+<td>
+<img onclick="openGame(99248392277037)" src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=99248392277037&size=150x150&format=Png" width="60">
+</td>
+</tr>
+
+</table>
+
+</div>
+</div>
+
+<div class="section">
+<h2>📱 Cara Penggunaan</h2>
+<div class="box">
+1. Join WhatsApp<br>
+2. Copy script<br>
+3. Paste ke executor<br>
+4. Execute
+</div>
+</div>
+
+<div class="section" style="text-align:center;">
+<p>© 2024 Rexz Hub</p>
+</div>
+
+<!-- SCRIPT GAME -->
 <script>
-const games = [
-    {id: 9753814298, name: "Swing Obby"},
-    {id: 97365843755210, name: "Cut Grass"},
-    {id: 106772177198260, name: "Reel Brainrot"},
-    {id: 96645548064314, name: "Catch And Tame"},
-    {id: 93724112271596, name: "Vacuum"},
-    {id: 99248392277037, name: "Untitled Melee RNG"}
-];
-
-const container = document.getElementById("games");
-
-games.forEach(g => {
-    const div = document.createElement("div");
-    div.className = "game";
-
-    div.innerHTML = `
-        <img src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=${g.id}&size=150x150&format=Png">
-        <p>${g.name}</p>
-    `;
-
-    div.onclick = () => {
-        playClick();
-        window.open(`https://www.roblox.com/games/${g.id}`, "_blank");
-    };
-
-    container.appendChild(div);
-});
+function openGame(id) {
+    playClick();
+    window.open(`https://www.roblox.com/games/${id}`, "_blank");
+}
 </script>
 
 <!-- PARTICLE -->
@@ -174,7 +267,7 @@ for (let i = 0; i < 100; i++) {
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         size: Math.random() * 2,
-        speed: Math.random() * 1
+        speed: Math.random()
     });
 }
 
@@ -194,7 +287,7 @@ function animate() {
 animate();
 </script>
 
-<!-- MUSIC TOGGLE -->
+<!-- MUSIC -->
 <script>
 let playing = false;
 const music = document.getElementById("bgMusic");
