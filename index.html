@@ -1,157 +1,561 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rexz Hub</title><style>
-body {
-    margin: 0;
-    background: black;
-    color: white;
-    font-family: Arial;
+<title>Rexz Hub</title>
+
+<style>
+:root{
+    --bg: #0d0d0d;
+    --panel: #1a1a1a;
+    --panel-2: #111111;
+    --line: #333333;
+    --red: #ff0000;
+    --red2: #990000;
+    --text: #ffffff;
+    --muted: #b7b7b7;
 }
 
-canvas {
+* { box-sizing: border-box; }
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: radial-gradient(circle at top, #1a0000 0%, #0d0d0d 35%, #070707 100%);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* BACKGROUND PARTICLES */
+#bg {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* OVERLAY GLOW */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,0,0,0.12), transparent 25%),
+        radial-gradient(circle at 80% 30%, rgba(255,0,0,0.10), transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(255,0,0,0.08), transparent 30%);
     z-index: -1;
+    pointer-events: none;
 }
 
 .header {
-    background: linear-gradient(90deg,#ff0000,#990000);
-    padding: 20px;
+    background: linear-gradient(90deg, #ff0000, #990000);
+    padding: 22px 16px;
     text-align: center;
     font-size: 28px;
     font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 0 22px rgba(255, 0, 0, 0.55);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    animation: headerGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes headerGlow {
+    from { box-shadow: 0 0 12px rgba(255, 0, 0, 0.35); }
+    to   { box-shadow: 0 0 26px rgba(255, 0, 0, 0.75); }
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 14px 28px;
 }
 
 .section {
-    padding: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    opacity: 0;
+    transform: translateY(28px);
+    animation: fadeUp 0.75s ease forwards;
+}
+
+.section:nth-of-type(1) { animation-delay: 0.05s; }
+.section:nth-of-type(2) { animation-delay: 0.10s; }
+.section:nth-of-type(3) { animation-delay: 0.15s; }
+.section:nth-of-type(4) { animation-delay: 0.20s; }
+.section:nth-of-type(5) { animation-delay: 0.25s; }
+.section:nth-of-type(6) { animation-delay: 0.30s; }
+.section:nth-of-type(7) { animation-delay: 0.35s; }
+.section:nth-of-type(8) { animation-delay: 0.40s; }
+.section:nth-of-type(9) { animation-delay: 0.45s; }
+.section:nth-of-type(10) { animation-delay: 0.50s; }
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h2 {
+    color: #ff5555;
+    margin: 0 0 10px;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .box {
-    background: #1a1a1a;
-    padding: 15px;
-    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(26,26,26,0.98), rgba(17,17,17,0.98));
+    padding: 16px;
+    border-radius: 14px;
+    margin-top: 10px;
+    border: 1px solid rgba(255,255,255,0.04);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(255,0,0,0.18);
+    border-color: rgba(255,0,0,0.18);
 }
 
 .button {
-    background: red;
+    display: inline-block;
     padding: 10px 15px;
-    border-radius: 8px;
+    background: linear-gradient(90deg, var(--red), var(--red2));
     color: white;
     text-decoration: none;
+    border-radius: 10px;
+    margin-top: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    box-shadow: 0 0 0 rgba(255,0,0,0);
+    border: 0;
+    cursor: pointer;
 }
 
-.game:hover {
-    background:#222;
-    cursor:pointer;
+.button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 14px rgba(255,0,0,0.45);
+    filter: brightness(1.08);
 }
-</style></head><body><canvas id="bg"></canvas>
 
-<div class="header">🚀 REXZ HUB</div><div class="section">
+.button:active {
+    transform: scale(0.98);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+td, th {
+    border: 1px solid #333;
+    padding: 10px 8px;
+    vertical-align: middle;
+}
+
+th {
+    background: #222;
+    color: #fff;
+}
+
+tr:hover td {
+    background: rgba(255,255,255,0.03);
+}
+
+.game-thumb {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    object-fit: cover;
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.game-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 14px rgba(255,0,0,0.40);
+}
+
+.note {
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.music-btn {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #ff0000, #990000);
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 30;
+    box-shadow: 0 0 16px rgba(255,0,0,0.45);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.music-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 22px rgba(255,0,0,0.55);
+}
+
+.music-indicator {
+    position: fixed;
+    right: 78px;
+    bottom: 28px;
+    font-size: 12px;
+    color: #ffd7d7;
+    background: rgba(0,0,0,0.35);
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.08);
+    z-index: 30;
+    backdrop-filter: blur(6px);
+}
+
+.small-muted {
+    color: #c9c9c9;
+    font-size: 13px;
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="header">🚀 REXZ HUB</div>
+
+<!-- SOUND -->
+<audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop preload="auto" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()" aria-label="Toggle music">🎵</button>
+<div class="music-indicator" id="musicState">Music: Off</div>
+
+<div class="container">
+
+<div class="section">
+<h2>📋 Daftar Isi</h2>
+<div class="box">
+1. Tentang Rexz Hub<br>
+2. Cara Mendapatkan Script<br>
+3. Fitur Script<br>
+4. Cara Penggunaan<br>
+5. Update Terbaru<br>
+6. Komunitas WhatsApp<br>
+7. FAQ<br>
+8. Disclaimer
+</div>
+</div>
+
+<div class="section">
+<h2>🎯 Tentang Rexz Hub</h2>
+<div class="box">
+Rexz Hub adalah kumpulan script Roblox untuk memudahkan farming, auto collect, dan fitur lainnya.<br><br>
+Script dikembangkan oleh REXZ dan diupdate secara berkala agar tetap kompatibel.
+</div>
+</div>
+
+<div class="section">
+<h2>🔥 Cara Mendapatkan Script</h2>
+<div class="box">
+⚠️ Script tidak tersedia di website ini!<br><br>
+Script hanya dibagikan melalui WhatsApp resmi.<br><br>
+
+<a class="button" onclick="playClick()" href="https://whatsapp.com/channel/0029VbCGqNi6GcGNHfses407" target="_blank">
+Join WhatsApp
+</a>
+</div>
+</div>
+
+<div class="section">
+<h2>✨ Fitur Script</h2>
+<div class="box">
+<table>
+<tr><th>Fitur</th><th>Deskripsi</th></tr>
+<tr><td>Auto Farm</td><td>Farming Otomatis Belum Gw Tambahin</td></tr>
+<tr><td>Auto Upgrade</td><td>Auto Upgrade Di Game Tertentu</td></tr>
+<tr><td>Bug Game</td><td>Memanfaatkan Bug Game</td></tr>
+<tr><td>Auto Collect Cash</td><td>Collect Semua Cash Di Base</td></tr>
+<tr><td>Auto Farm Money</td><td>Di Game Vacuum Doang🗿</td></tr>
+<tr><td>Burst Mode</td><td>Spam Ke Server Pake Fire</td></tr>
+<tr><td>Auto Loop</td><td>Mengulangi Teus Menerus</td></tr>
+<tr><td>Anti AFK</td><td>Anti idle</td></tr>
+<tr><td>GUI Hub</td><td>Style Rexz Hub</td></tr>
+</table>
+</div>
+</div>
+
+<div class="section">
 <h2>🎮 Support Game</h2>
 <div class="box">
-<table id="gameTable" width="100%">
+
+<p>📊 Jumlah Game Support: <b>6 Game</b></p>
+
+<table>
 <tr>
 <th>Game</th>
 <th>Status</th>
+<th>Fitur</th>
 <th>Preview</th>
 </tr>
-</table>
-</div>
-</div><audio id="clickSound" src="https://www.myinstants.com/media/sounds/mouse-click.mp3"></audio> <audio id="bgMusic" loop> <source src="https://files.catbox.moe/6nq3v0.mp3"> </audio>
 
-<button class="button" onclick="toggleMusic()">🎵 Toggle Music</button>
+<tr>
+<td>Swing Obby For Brainrot</td>
+<td style="color:lime;">🟢 Support</td>
+<td>How To Use, Auto Upgrade, Auto Collect</td>
+<td>
+<img class="game-thumb"
+onclick="openGame(9753814298)"
+src="https://ibb.co/GQsyZc26"
+onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
+</td>
+</tr>
+
+<tr>
+<td>Cut Grass For Brainrot</td>
+<td style="color:lime;">🟢 Support</td>
+<td>Auto Upgrade, Remove Grass, Teleport All Zones</td>
+<td>
+<img class="game-thumb"
+onclick="openGame(97365843755210)"
+src="https://i.ibb.co/WrdVysv/images-4.jpg"
+onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
+</td>
+</tr>
+
+<tr>
+<td>Reel A Brainrot</td>
+<td style="color:lime;">🟢 Support</td>
+<td>Auto Fishing, Auto Upgrade = Bug I Think</td>
+<td>
+<img class="game-thumb"
+onclick="openGame(106772177198260)"
+src="https://i.ibb.co/t6qf59g/images-5.jpg"
+onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
+</td>
+</tr>
+
+<tr>
+<td>Catch And Tame</td>
+<td style="color:white;">👀 Coming Soon</td>
+<td>-</td>
+<td>
+<img class="game-thumb"
+onclick="openGame(96645548064314)"
+src="https://i.ibb.co/7xw93GHT/images-6.jpg"
+onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
+</td>
+</tr>
+
+<tr>
+<td>Vacuum For Brainrot</td>
+<td style="color:white;">👀 Coming Soon</td>
+<td>-</td>
+<td>
+<img class="game-thumb"
+onclick="openGame(93724112271596)"
+src="https://i.ibb.co/NM5hvgq/images-1.jpg"
+onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
+</td>
+</tr>
+
+<tr>
+<td>Untilited Melee Rng</td>
+<td style="color:white;">👀 Coming Soon</td>
+<td>-</td>
+<td>
+<img class="game-thumb"
+onclick="openGame(99248392277037)"
+src="https://i.ibb.co/twv11wMv/images-3.jpg"
+onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
+</td>
+</tr>
+
+</table>
+
+<br>
+
+<b>Status Info:</b><br>
+🟢 Support = Full work<br>
+🟡 Need Upd = Some work<br>
+🔴 Not Update = Belum Update<br>
+👀 Coming soon = Akan Datang<br><br>
+
+<b>NOTE:</b><br>
+✔ Game akan terus ditambahkan<br>
+✔ Request game via WhatsApp<br>
+✔ Update tergantung mood 🗿
+</div>
+</div>
+
+<div class="section">
+<h2>📱 Cara Penggunaan</h2>
+<div class="box">
+1. Join WhatsApp<br>
+2. Copy script<br>
+3. Paste ke executor<br>
+4. Execute
+</div>
+</div>
+
+<div class="section">
+<h2>🔄 Update Terbaru</h2>
+<div class="box">
+Update setiap:<br>
+Sesui Mood<br><br>
+
+<a class="button" onclick="playClick()" href="https://whatsapp.com/channel/0029VbCGqNi6GcGNHfses407" target="_blank">
+Cek Update
+</a>
+</div>
+</div>
+
+<div class="section">
+<h2>💬 Komunitas</h2>
+<div class="box">
+Bergabung untuk:
+<br>✅ Script terbaru
+<br>✅ Owner Nya Ganteng
+<br>✅ Request fitur yg ngotak
+</div>
+</div>
+
+<div class="section">
+<h2>❓ FAQ</h2>
+<div class="box">
+<b>Apakah gratis?</b><br>Ya gratis.<br><br>
+<b>Apakah aman?</b><br>Ada risiko, gunakan alt.<br><br>
+<b>Kapan update?</b><br>Tergantung Gw Moon Kaga
+</div>
+</div>
+
+<div class="section">
+<h2>⚠️ Disclaimer</h2>
+<div class="box">
+Gunakan script dengan risiko sendiri.<br>
+Tidak bertanggung jawab atas ban.<br>
+Disarankan menggunakan akun alt.
+</div>
+</div>
+
+<div class="section">
+<h2>📞 Kontak</h2>
+<div class="box">
+WhatsApp:+62 889-8920-8953<br><br>
+<a class="button" onclick="playClick()" href="https://wa.me/6288989208953" target="_blank">
+Masuk Channel
+</a>
+</div>
+</div>
+
+<div class="section" style="text-align:center; border-bottom:none;">
+<p class="small-muted">© 2024 Rexz Hub</p>
+</div>
+
+</div>
 
 <script>
-// PARTICLES
-const c = document.getElementById("bg");
-const ctx = c.getContext("2d");
-c.width = window.innerWidth;
-c.height = window.innerHeight;
-
-let p = [];
-for(let i=0;i<100;i++){
-    p.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2});
+function playClick() {
+    const s = document.getElementById("clickSound");
+    try {
+        s.currentTime = 0;
+        s.play();
+    } catch (e) {}
 }
 
-function draw(){
-    ctx.clearRect(0,0,c.width,c.height);
-    ctx.fillStyle="red";
-    p.forEach(a=>{
-        ctx.beginPath();
-        ctx.arc(a.x,a.y,a.r,0,Math.PI*2);
-        ctx.fill();
-        a.y+=0.5;
-        if(a.y>c.height)a.y=0;
-    });
-    requestAnimationFrame(draw);
-}
-draw();
-
-// SOUND
-window.addEventListener("click",()=>{
-    document.getElementById("clickSound").play();
-});
-
-function toggleMusic(){
-    let m = document.getElementById("bgMusic");
-    if(m.paused) m.play(); else m.pause();
+function openGame(id) {
+    playClick();
+    window.open(`https://www.roblox.com/games/${id}`, "_blank");
 }
 
-// GAME LIST (PAKE ID DARI WEB)
-const games = [
-    {name:"Swing Obby", id:9753814298, status:"🟢"},
-    {name:"Cut Grass", id:97365843755210, status:"🟢"},
-    {name:"Reel A Brainrot", id:106772177198260, status:"🟢"},
-    {name:"Catch And Tame", id:96645548064314, status:"👀"},
-    {name:"Vacuum Brainrot", id:93724112271596, status:"👀"},
-    {name:"Untitled Melee RNG", id:99248392277037, status:"👀"}
-];
+/* MUSIC TOGGLE */
+let musicPlaying = false;
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+const musicState = document.getElementById("musicState");
 
-async function getPlaceId(universeId){
-    try{
-        let res = await fetch(`https://apis.roblox.com/universes/v1/universes/${universeId}`);
-        let data = await res.json();
-        return data.rootPlaceId;
-    }catch{
-        return universeId;
+function toggleMusic() {
+    if (!musicPlaying) {
+        music.play().then(() => {
+            musicPlaying = true;
+            musicBtn.textContent = "⏸";
+            musicState.textContent = "Music: On";
+        }).catch(() => {
+            musicState.textContent = "Music: Blocked";
+        });
+    } else {
+        music.pause();
+        musicPlaying = false;
+        musicBtn.textContent = "🎵";
+        musicState.textContent = "Music: Off";
     }
 }
 
-async function loadGames(){
-    const table = document.getElementById("gameTable");
+/* PARTICLES */
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+let particles = [];
+let w, h;
 
-    for(let g of games){
-        let placeId = await getPlaceId(g.id);
+function resizeCanvas() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+    particles = [];
+    const count = Math.min(110, Math.floor((w * h) / 18000));
+    for (let i = 0; i < count; i++) {
+        particles.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: Math.random() * 1.8 + 0.4,
+            v: Math.random() * 0.55 + 0.15,
+            a: Math.random() * Math.PI * 2
+        });
+    }
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
 
-        try{
-            let res = await fetch(`https://thumbnails.roblox.com/v1/places/gameicons?placeIds=${placeId}&size=150x150&format=Png`);
-            let data = await res.json();
-            let img = data.data[0].imageUrl;
-
-            table.innerHTML += `
-            <tr class="game" onclick="playGame(${placeId})">
-                <td>${g.name}</td>
-                <td>${g.status}</td>
-                <td><img src="${img}" width="60"></td>
-            </tr>`;
-        }catch{
-            table.innerHTML += `
-            <tr class="game">
-                <td>${g.name}</td>
-                <td>${g.status}</td>
-                <td>❌</td>
-            </tr>`;
+function drawParticles() {
+    ctx.clearRect(0, 0, w, h);
+    for (const p of particles) {
+        p.y += p.v;
+        p.a += 0.01;
+        if (p.y > h + 10) {
+            p.y = -10;
+            p.x = Math.random() * w;
         }
+        const alpha = 0.25 + Math.sin(p.a) * 0.15;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
     }
+    requestAnimationFrame(drawParticles);
 }
+drawParticles();
+</script>
 
-function playGame(id){
-    window.open(`https://www.roblox.com/games/${id}`,"_blank");
-}
-
-loadGames();
-</script></body>
+</body>
 </html>
