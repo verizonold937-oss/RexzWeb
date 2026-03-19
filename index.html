@@ -11,46 +11,84 @@ body {
     color: #ffffff;
     font-family: Arial, sans-serif;
     margin: 0;
+    scroll-behavior: smooth;
 }
 
+/* HEADER */
 .header {
     background: linear-gradient(90deg, #ff0000, #990000);
-    padding: 20px;
+    padding: 25px;
     text-align: center;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
+    letter-spacing: 2px;
+    box-shadow: 0 0 20px red;
+    animation: glow 2s infinite alternate;
 }
 
+@keyframes glow {
+    from { box-shadow: 0 0 10px red; }
+    to { box-shadow: 0 0 25px red; }
+}
+
+/* SECTION */
 .section {
-    padding: 20px;
+    padding: 25px;
     border-bottom: 1px solid #333;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: fadeUp 0.8s forwards;
+}
+
+.section:nth-child(even) {
+    animation-delay: 0.2s;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 h2 {
     color: #ff4444;
+    margin-bottom: 10px;
 }
 
+/* BOX */
 .box {
     background: #1a1a1a;
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 12px;
     margin-top: 10px;
+    transition: 0.3s;
 }
 
+.box:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(255,0,0,0.5);
+}
+
+/* BUTTON */
 .button {
     display: inline-block;
-    padding: 10px 15px;
+    padding: 10px 18px;
     background: red;
     color: white;
     text-decoration: none;
     border-radius: 8px;
     margin-top: 10px;
+    transition: 0.3s;
 }
 
 .button:hover {
     background: darkred;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px red;
 }
 
+/* TABLE */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -60,10 +98,37 @@ table {
 td, th {
     border: 1px solid #333;
     padding: 8px;
+    text-align: center;
 }
 
 th {
     background: #222;
+}
+
+/* IMAGE */
+img {
+    transition: 0.3s;
+}
+
+img:hover {
+    transform: scale(1.2);
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: red;
+    border-radius: 10px;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 15px;
+    color: #aaa;
 }
 </style>
 
@@ -112,13 +177,11 @@ Join WhatsApp
 <div class="box">
 <table>
 <tr><th>Fitur</th><th>Deskripsi</th></tr>
-<tr><td>Auto Farm</td><td>Farming Otomatis Belum Gw Tambahin</td></tr>
-<tr><td>Auto Upgrade</td><td>Auto Upgrade Di Game Tertentu</td></tr>
-<tr><td>Bug Game</td><td>Memanfaatkan Bug Game</td></tr>
-<tr><td>Auto Collect Cash</td><td>Collect Semua Cash Di Base</td></tr>
-<tr><td>Auto Farm Money</td><td>Di Game Vacuum Doang🗿</td></tr>
-<tr><td>Burst Mode</td><td>Spam Ke Server Pake Fire</td></tr>
-<tr><td>Auto Loop</td><td>Mengulangi Teus Menerus</td></tr>
+<tr><td>Auto Farm</td><td>Coming Soon</td></tr>
+<tr><td>Auto Upgrade</td><td>Upgrade otomatis</td></tr>
+<tr><td>Bug Game</td><td>Exploit fitur game</td></tr>
+<tr><td>Auto Collect Cash</td><td>Collect otomatis</td></tr>
+<tr><td>Auto Loop</td><td>Loop tanpa henti</td></tr>
 <tr><td>Anti AFK</td><td>Anti idle</td></tr>
 <tr><td>GUI Hub</td><td>Style Rexz Hub</td></tr>
 </table>
@@ -135,82 +198,31 @@ Join WhatsApp
 <tr>
 <th>Game</th>
 <th>Status</th>
-<th>Fitur</th>
 <th>Preview</th>
 </tr>
 
 <tr>
-<td>Swing Obby For Brainrot</td>
-<td style="color:lime;">🟢 Support</td>
-<td>How To Use, Auto Upgrade, Auto Collect</td>
-<td>
-<img src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=9753814298&size=150x150&format=Png" width="60" style="border-radius:10px;">
-</td>
+<td>Swing Obby</td>
+<td style="color:lime;">🟢</td>
+<td><img src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=9753814298&size=150x150&format=Png" width="60"></td>
 </tr>
 
 <tr>
-<td>Cut Grass For Brainrot</td>
-<td style="color:Lime;">🟢 Support</td>
-<td>Auto Upgrade, Remove Grass, Teleport All Zones</td>
-<td>
-<img src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=97365843755210&size=150x150&format=Png" width="60" style="border-radius:10px;">
-</td>
+<td>Cut Grass</td>
+<td style="color:lime;">🟢</td>
+<td><img src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=97365843755210&size=150x150&format=Png" width="60"></td>
 </tr>
 
 <tr>
-<td>Reel A Brainrot</td>
-<td style="color:lime;">🟢 Support</td>
-<td>Auto Fishing, Auto Upgrade = Bug I Think 
-<td>
-<img src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=106772177198260&size=150x150&format=Png" width="60" style="border-radius:10px;">
-</td>
+<td>Reel Brainrot</td>
+<td style="color:lime;">🟢</td>
+<td><img src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=106772177198260&size=150x150&format=Png" width="60"></td>
 </tr>
 
-<tr>
-<td>Catch And Tame</td>
-<td style="color:white;">👀 Coming Soon</td>
-<td>-</td>
-<td>
-<img src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=96645548064314&size=150x150&format=Png" width="60" style="border-radius:10px;">
-</td>
-</tr>    
-
-<tr>
-<td>Vacuum For Brainrot</td>
-<td style="color:white;">👀 Coming Soon</td>
-<td>-</td>
-<td>
-<img src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=93724112271596&size=150x150&format=Png" width="60" style="border-radius:10px;">
-</td>
-</tr>
-
-<tr>
-<td>Untilited Melee Rng</td>
-<td style="color:white;">👀 Coming Soon</td>
-<td>-</td>
-<td>
-<img src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=99248392277037&size=150x150&format=Png" width="60" style="border-radius:10px;">
-</td>
-</tr>
-    
 </table>
 
-<br>
-
-<b>Status Info:</b><br>
-🟢 Support = Full work<br>
-🟡 Need Upd = Some work<br>
-🔴 Not Update = Belum Update<br>
-👀 Coming soon = Akan Datang<br><br>
-
-
-<b>NOTE:</b><br>
-✔ Game akan terus ditambahkan<br>
-✔ Request game via WhatsApp<br>
-✔ Update tergantung mood 🗿
-
 </div>
- </div>   
+</div>
 
 <div class="section">
 <h2>📱 Cara Penggunaan</h2>
@@ -222,59 +234,9 @@ Join WhatsApp
 </div>
 </div>
 
-<div class="section">
-<h2>🔄 Update Terbaru</h2>
-<div class="box">
-Update setiap:<br>
-Sesui Mood<br><br>
-
-<a class="button" href="https://whatsapp.com/channel/0029VbCGqNi6GcGNHfses407" target="_blank">
-Cek Update
-</a>
-</div>
-</div>
-
-<div class="section">
-<h2>💬 Komunitas</h2>
-<div class="box">
-Bergabung untuk:
-<br>✅ Script terbaru
-<br>✅ Owner Nya Ganteng
-<br>✅ Request fitur yg ngotak
-</div>
-</div>
-
-<div class="section">
-<h2>❓ FAQ</h2>
-<div class="box">
-<b>Apakah gratis?</b><br>Ya gratis.<br><br>
-<b>Apakah aman?</b><br>Ada risiko, gunakan alt.<br><br>
-<b>Kapan update?</b><br>Tergantung Gw Moon Kaga
-</div>
-</div>
-
-<div class="section">
-<h2>⚠️ Disclaimer</h2>
-<div class="box">
-Gunakan script dengan risiko sendiri.<br>
-Tidak bertanggung jawab atas ban.<br>
-Disarankan menggunakan akun alt.
-</div>
-</div>
-
-<div class="section">
-<h2>📞 Kontak</h2>
-<div class="box">
-WhatsApp:+62 889-8920-8953<br><br>
-<a class="button" href="https://wa.me/6288989208953" target="_blank">
-Masuk Channel
-</a>
-</div>
-</div>
-
-<div class="section" style="text-align:center;">
-<p>© 2024 Rexz Hub</p>
-</div>
+<footer>
+© 2024 Rexz Hub
+</footer>
 
 </body>
 </html>
