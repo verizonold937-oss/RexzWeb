@@ -7,236 +7,178 @@
 
 <style>
 body {
-    background: #0d0d0d;
-    color: #ffffff;
-    font-family: Arial, sans-serif;
     margin: 0;
-    scroll-behavior: smooth;
+    color: white;
+    font-family: Arial;
+    overflow-x: hidden;
+    background: black;
+}
+
+/* PARTICLE BACKGROUND */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 /* HEADER */
 .header {
-    background: linear-gradient(90deg, #ff0000, #990000);
+    background: linear-gradient(90deg, red, darkred);
     padding: 25px;
     text-align: center;
     font-size: 30px;
-    font-weight: bold;
-    letter-spacing: 2px;
     box-shadow: 0 0 20px red;
-    animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-    from { box-shadow: 0 0 10px red; }
-    to { box-shadow: 0 0 25px red; }
 }
 
 /* SECTION */
 .section {
-    padding: 25px;
-    border-bottom: 1px solid #333;
-    opacity: 0;
-    transform: translateY(40px);
-    animation: fadeUp 0.8s forwards;
-}
-
-.section:nth-child(even) {
-    animation-delay: 0.2s;
-}
-
-@keyframes fadeUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-h2 {
-    color: #ff4444;
-    margin-bottom: 10px;
+    padding: 20px;
 }
 
 /* BOX */
 .box {
-    background: #1a1a1a;
+    background: #111;
     padding: 15px;
-    border-radius: 12px;
-    margin-top: 10px;
+    border-radius: 10px;
     transition: 0.3s;
 }
 
 .box:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 15px rgba(255,0,0,0.5);
+    transform: scale(1.03);
+    box-shadow: 0 0 15px red;
 }
 
 /* BUTTON */
 .button {
     display: inline-block;
-    padding: 10px 18px;
+    padding: 10px 15px;
     background: red;
-    color: white;
-    text-decoration: none;
     border-radius: 8px;
-    margin-top: 10px;
+    text-decoration: none;
+    color: white;
     transition: 0.3s;
 }
 
 .button:hover {
-    background: darkred;
     transform: scale(1.1);
-    box-shadow: 0 0 10px red;
 }
 
-/* TABLE */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+/* GAME GRID */
+.game-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
 }
 
-td, th {
-    border: 1px solid #333;
-    padding: 8px;
+.game {
     text-align: center;
 }
 
-th {
-    background: #222;
-}
-
-/* IMAGE */
-img {
+.game img {
+    width: 100%;
+    border-radius: 10px;
     transition: 0.3s;
 }
 
-img:hover {
-    transform: scale(1.2);
-}
-
-/* SCROLLBAR */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: red;
-    border-radius: 10px;
-}
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 15px;
-    color: #aaa;
+.game img:hover {
+    transform: scale(1.1);
 }
 </style>
-
 </head>
+
 <body>
+
+<canvas id="bg"></canvas>
 
 <div class="header">🚀 REXZ HUB</div>
 
 <div class="section">
-<h2>📋 Daftar Isi</h2>
+<h2>🎮 Support Game (Auto)</h2>
 <div class="box">
-1. Tentang Rexz Hub<br>
-2. Cara Mendapatkan Script<br>
-3. Fitur Script<br>
-4. Cara Penggunaan<br>
-5. Update Terbaru<br>
-6. Komunitas WhatsApp<br>
-7. FAQ<br>
-8. Disclaimer
+<div class="game-list" id="games"></div>
 </div>
 </div>
 
 <div class="section">
-<h2>🎯 Tentang Rexz Hub</h2>
+<h2>🔥 Join</h2>
 <div class="box">
-Rexz Hub adalah kumpulan script Roblox untuk memudahkan farming, auto collect, dan fitur lainnya.<br><br>
-Script dikembangkan oleh REXZ dan diupdate secara berkala agar tetap kompatibel.
-</div>
-</div>
-
-<div class="section">
-<h2>🔥 Cara Mendapatkan Script</h2>
-<div class="box">
-⚠️ Script tidak tersedia di website ini!<br><br>
-
-Script hanya dibagikan melalui WhatsApp resmi.<br><br>
-
-<a class="button" href="https://whatsapp.com/channel/0029VbCGqNi6GcGNHfses407" target="_blank">
+<a class="button" onclick="playClick()" href="https://wa.me/6288989208953" target="_blank">
 Join WhatsApp
 </a>
 </div>
 </div>
 
-<div class="section">
-<h2>✨ Fitur Script</h2>
-<div class="box">
-<table>
-<tr><th>Fitur</th><th>Deskripsi</th></tr>
-<tr><td>Auto Farm</td><td>Coming Soon</td></tr>
-<tr><td>Auto Upgrade</td><td>Upgrade otomatis</td></tr>
-<tr><td>Bug Game</td><td>Exploit fitur game</td></tr>
-<tr><td>Auto Collect Cash</td><td>Collect otomatis</td></tr>
-<tr><td>Auto Loop</td><td>Loop tanpa henti</td></tr>
-<tr><td>Anti AFK</td><td>Anti idle</td></tr>
-<tr><td>GUI Hub</td><td>Style Rexz Hub</td></tr>
-</table>
-</div>
-</div>
+<!-- SOUND -->
+<audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
 
-<div class="section">
-<h2>🎮 Support Game</h2>
-<div class="box">
+<script>
+function playClick() {
+    document.getElementById("clickSound").play();
+}
+</script>
 
-<p>📊 Jumlah Game Support: <b>6 Game</b></p>
+<!-- AUTO GAME LIST -->
+<script>
+const gameIds = [
+    9753814298,
+    97365843755210,
+    106772177198260,
+    96645548064314,
+    93724112271596,
+    99248392277037
+];
 
-<table>
-<tr>
-<th>Game</th>
-<th>Status</th>
-<th>Preview</th>
-</tr>
+const container = document.getElementById("games");
 
-<tr>
-<td>Swing Obby</td>
-<td style="color:lime;">🟢</td>
-<td><img src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=9753814298&size=150x150&format=Png" width="60"></td>
-</tr>
+gameIds.forEach(id => {
+    const div = document.createElement("div");
+    div.className = "game";
 
-<tr>
-<td>Cut Grass</td>
-<td style="color:lime;">🟢</td>
-<td><img src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=97365843755210&size=150x150&format=Png" width="60"></td>
-</tr>
+    div.innerHTML = `
+        <img src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=${id}&size=150x150&format=Png">
+        <p>ID: ${id}</p>
+    `;
 
-<tr>
-<td>Reel Brainrot</td>
-<td style="color:lime;">🟢</td>
-<td><img src="https://thumbnails.roblox.com/v1/places/gameicons?placeIds=106772177198260&size=150x150&format=Png" width="60"></td>
-</tr>
+    container.appendChild(div);
+});
+</script>
 
-</table>
+<!-- PARTICLE BACKGROUND -->
+<script>
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
 
-</div>
-</div>
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-<div class="section">
-<h2>📱 Cara Penggunaan</h2>
-<div class="box">
-1. Join WhatsApp<br>
-2. Copy script<br>
-3. Paste ke executor<br>
-4. Execute
-</div>
-</div>
+let particles = [];
 
-<footer>
-© 2024 Rexz Hub
-</footer>
+for (let i = 0; i < 80; i++) {
+    particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2,
+        speed: Math.random() * 1
+    });
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach(p => {
+        p.y += p.speed;
+        if (p.y > canvas.height) p.y = 0;
+
+        ctx.fillStyle = "white";
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
 
 </body>
 </html>
