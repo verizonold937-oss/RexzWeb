@@ -541,3 +541,205 @@ drawParticles();
 
 </body>
 </html>
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rexz Hub</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: Arial;
+    overflow-x: hidden;
+}
+
+/* PARTICLE BG */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* HEADER */
+.header {
+    background: linear-gradient(90deg,#ff0000,#990000);
+    padding: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 10px red; }
+    to { box-shadow: 0 0 25px red; }
+}
+
+.section {
+    padding: 20px;
+    border-bottom: 1px solid #333;
+}
+
+.box {
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.button {
+    background: red;
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.button:hover {
+    background: darkred;
+}
+
+table {
+    width: 100%;
+    margin-top: 10px;
+}
+
+td,th {
+    border:1px solid #333;
+    padding:8px;
+}
+
+.game {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.game:hover {
+    background:#222;
+    transform: scale(1.02);
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="header">🚀 REXZ HUB</div>
+
+<div class="section">
+<h2>🎮 Support Game</h2>
+<div class="box">
+
+<table id="gameTable">
+<tr>
+<th>Game</th>
+<th>Status</th>
+<th>Preview</th>
+</tr>
+</table>
+
+</div>
+</div>
+
+<!-- SOUND -->
+<audio id="clickSound" src="https://www.myinstants.com/media/sounds/mouse-click.mp3"></audio>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+<source src="https://files.catbox.moe/6nq3v0.mp3">
+</audio>
+
+<button onclick="toggleMusic()" class="button">🎵 Toggle Music</button>
+
+<script>
+// PARTICLES
+const c = document.getElementById("bg");
+const ctx = c.getContext("2d");
+c.width = window.innerWidth;
+c.height = window.innerHeight;
+
+let p = [];
+for(let i=0;i<100;i++){
+    p.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2});
+}
+
+function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    ctx.fillStyle="red";
+    p.forEach(a=>{
+        ctx.beginPath();
+        ctx.arc(a.x,a.y,a.r,0,Math.PI*2);
+        ctx.fill();
+        a.y+=0.5;
+        if(a.y>c.height)a.y=0;
+    });
+    requestAnimationFrame(draw);
+}
+draw();
+
+// SOUND CLICK
+document.addEventListener("click",()=>{
+    document.getElementById("clickSound").play();
+});
+
+// MUSIC
+function toggleMusic(){
+    let m = document.getElementById("bgMusic");
+    if(m.paused) m.play();
+    else m.pause();
+}
+
+// GAME LIST (AUTO)
+const games = [
+    {name:"Swing Obby", id:9753814298, status:"🟢"},
+    {name:"Cut Grass", id:97365843755210, status:"🟢"},
+    {name:"Reel A Brainrot", id:106772177198260, status:"🟢"},
+    {name:"Catch And Tame", id:96645548064314, status:"👀"},
+    {name:"Vacuum Brainrot", id:93724112271596, status:"👀"},
+    {name:"Untitled Melee RNG", id:99248392277037, status:"👀"}
+];
+
+// LOAD GAME DATA (FIX GAMBAR)
+async function loadGames(){
+    const table = document.getElementById("gameTable");
+
+    for(let g of games){
+        try{
+            let res = await fetch(`https://thumbnails.roblox.com/v1/places/gameicons?placeIds=${g.id}&size=150x150&format=Png`);
+            let data = await res.json();
+            let img = data.data[0].imageUrl;
+
+            table.innerHTML += `
+            <tr class="game" onclick="playGame(${g.id})">
+                <td>${g.name}</td>
+                <td>${g.status}</td>
+                <td><img src="${img}" width="60"></td>
+            </tr>`;
+        }catch{
+            table.innerHTML += `
+            <tr class="game" onclick="playGame(${g.id})">
+                <td>${g.name}</td>
+                <td>${g.status}</td>
+                <td>❌</td>
+            </tr>`;
+        }
+    }
+}
+
+function playGame(id){
+    window.open("https://www.roblox.com/games/"+id,"_blank");
+}
+
+loadGames();
+</script>
+
+</body>
+</html>
